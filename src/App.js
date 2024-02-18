@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Header from './Components/Header';
+import Header2 from './Components/Header2';
+import Table from "./Components/Table"
+import CreateNewForm from './Components/CreateNewForm';
+import "./App.css"
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [rowss, setRows] = useState([]);
+
+  const addRow = (formData) => {
+    setRows([...rowss, formData]);
+  };
+   
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <div className='container1'>
+        
+          <Header />
+           
+      
+        <Router>
+          <Routes>
+            <Route exact path='/' element={<Table rows={rowss} />} />
+            <Route path='/create-new' element={<CreateNewForm  addRow={addRow}/>} />
+          </Routes>
+        </Router>
+      </div>
     </div>
   );
 }
